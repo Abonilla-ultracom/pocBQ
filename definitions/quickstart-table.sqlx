@@ -3,7 +3,7 @@ config {
 }
 
 SELECT
-  fruit,
-  SUM(count) as count
-FROM ${ref("quickstart-source")}
-GROUP BY 1
+  *
+  --SUM(count) as count
+FROM poc-ci-cd-375313.fuentes.estado
+--GROUP BY 1
