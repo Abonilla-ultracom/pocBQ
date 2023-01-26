@@ -3,6 +3,6 @@
   "assertionSchema": "dataform_assertions",
   "warehouse": "bigquery",
   "defaultDatabase": "poc-ci-cd-dev",
-  "defaultLocation": "US"
+  "defaultLocation": "us-central1"
 }
     
