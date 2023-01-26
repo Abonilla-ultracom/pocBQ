@@ -1,7 +1,0 @@
-config {
-  type: "declaration",
-  database: "poc-ci-cd-dev",
-  schema: "fuentes",
-  name: "estado",
-  description: "ejercicio de prueba"
-}
