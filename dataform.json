@@ -4,5 +4,6 @@
   "warehouse": "bigquery",
   "defaultDatabase": "poc-ci-cd-dev",
   "defaultLocation": "us-central1"
+  --test
 }
     
