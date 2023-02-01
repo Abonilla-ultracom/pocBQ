@@ -1,13 +1,22 @@
-#!groovy
+Jenkinsfile (Declarative Pipeline)
+pipeline {
+    agent any
 
-node {
-  stage ('Checkout') {
-    checkout scm
-  }
-
-  stage('Check Env Parameters'){
-    echo "Branch Name : ${env.GIT_BRANCH}"
-    echo "Octo Server Address : ${env.octoServer}"
-  }
-
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Building..'
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'Testing..'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                echo 'Deploying....'
+            }
+        }
+    }
 }
