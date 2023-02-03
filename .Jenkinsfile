@@ -7,5 +7,15 @@ node{
   stage('pull changes'){
     sh 'git pull origin '+branch
   }
+  stage('merge changes'){
+    sh 'git merge origin' +branch
+  }
+  stage('push changes'){
+    sh 'git push origin '+branch
+    changeId = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
+  }
+  stage('approve changes'){
+    input message: 'Aprobar cambios?', ok: 'Aprobar'
+  }
    
 }  
