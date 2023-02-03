@@ -18,4 +18,4 @@ node{
     input message: 'Aprobar cambios?', ok: 'Aprobar'
   }
   stage('test'){
-    sh 'mvn clean test'
+    sh 'mvn clean test'} 
