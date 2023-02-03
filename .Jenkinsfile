@@ -11,7 +11,7 @@ node{
   stage('Migrar cambios a la rama de producción') {
             
                 checkout([$class: 'GitSCM', branches: [[name: 'quickstart-repository']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://Abonilla-ultracom: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@github.com/Abonilla-ultracom/pocBQ.git']]])
-                sh 'git merge ci-cd_develop'
+                sh 'git merge origin/ci-cd_develop'
            
     }
 }  
