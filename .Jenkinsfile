@@ -3,14 +3,11 @@ node{
   def branch = 'quickstart-repository'  
   def changeId
 
-   stages {
-        stage('Configurar usuario') {
-                    script {
-                    env.GIT_AUTHOR_EMAIL = 'abonilla@ultracom.com.co'
-                    env.GIT_AUTHOR_NAME = 'Abonilla-ultracom'
-                }
-            
-        }
+   
+  stage('Configurar usuario') {
+      script {  env.GIT_AUTHOR_EMAIL = 'abonilla@ultracom.com.co'
+                env.GIT_AUTHOR_NAME = 'Abonilla-ultracom'}            
+        
   stage('checkout'){
     checkout([$class: 'GitSCM', branches: [[name: branch]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '0abb7957-5f3c-40b7-91d0-5f067e64be27', url: 'https://Abonilla-ultracom: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@github.com/Abonilla-ultracom/pocBQ.git']]])
   }
