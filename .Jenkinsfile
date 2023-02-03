@@ -1,8 +1,8 @@
 node{
-  def branch = 'quickstart-repository'  
+  def branch = 'ci-cd_develop'  
   def changeId
   stage('checkout'){
-    checkout([$class: 'GitSCM', branches: [[name: branch]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '0abb7957-5f3c-40b7-91d0-5f067e64be27', url: 'https://github.com/Abonilla-ultracom/pocBQ.git']]])
+    checkout([$class: 'GitSCM', branches: [[name: ci-cd_develop]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '0abb7957-5f3c-40b7-91d0-5f067e64be27', url: 'https://github.com/Abonilla-ultracom/pocBQ.git']]])
   }
   stage('pull changes'){
     sh 'git pull origin '+branch
