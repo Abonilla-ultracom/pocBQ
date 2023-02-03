@@ -1,18 +1,17 @@
-
 node{
-  def ci-cd_develop = 'quickstart-repository'  
+  def branch = 'quickstart-repository'  
   def changeId
   stage('checkout'){
-    checkout([$class: 'GitSCM', ci-cd_developes: [[name: ci-cd_develop]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'jenkinsCreds', url: 'https://github.com/miUsuario/miRepositorio.git']]])
+    checkout([$class: 'GitSCM', branches: [[name: branch]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'jenkinsCreds', url: 'https://github.com/miUsuario/miRepositorio.git']]])
   }
   stage('pull changes'){
-    sh 'git pull origin '+ ci-cd_develop
+    sh 'git pull origin '+branch
   }
   stage('merge changes'){
     sh 'git merge origin development'
   }
   stage('push changes'){
-    sh 'git push origin '+ ci-cd_develop
+    sh 'git push origin '+branch
     changeId = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
   }
   stage('approve changes'){
