@@ -2,7 +2,7 @@ node{
   def branch = 'quickstart-repository'  
   def changeId
   stage('checkout'){
-    checkout([$class: 'GitSCM', branches: [[name: branch]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'jenkinsCreds', url: 'https://github.com/miUsuario/miRepositorio.git']]])
+    checkout([$class: 'GitSCM', branches: [[name: branch]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'jenkinsCreds', url: 'https://github.com/Abonilla-ultracom/pocBQ.git']]])
   }
   stage('pull changes'){
     sh 'git pull origin '+branch
