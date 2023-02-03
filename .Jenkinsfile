@@ -1,4 +1,3 @@
-
 node{
   def branch = 'quickstart-repository'  
   def changeId
