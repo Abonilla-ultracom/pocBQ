@@ -1,15 +1,21 @@
-node{
-  def branch = 'quickstart-repository'  
-  def changeId
-  stage('checkout'){
-    checkout([$class: 'GitSCM', branches: [[name: branch]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '0abb7957-5f3c-40b7-91d0-5f067e64be27', url: 'https://Abonilla-ultracom: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@github.com/Abonilla-ultracom/pocBQ.git']]])
-  }
-  stage('pull changes'){
-    sh 'git pull origin '+branch
-  }
- 
-  stage('approve changes'){
-    input message: 'Aprobar cambios?', ok: 'Aprobar'
-  }
-   
-}  
+pipeline {
+    agent any
+    stages {
+        stage('Clonar el repositorio') {
+            steps {
+                git 'https://Abonilla-ultracom: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@github.com/Abonilla-ultracom/pocBQ.git'
+            }
+        }
+        stage('Cambios desde la rama de desarrollo') {
+            steps {
+                checkout([$class: 'GitSCM', branches: [[name: '*/ci-cd_develop']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/usuario/repositorio.git']]])
+            }
+        }
+        stage('Migrar cambios a la rama de producción') {
+            steps {
+                checkout([$class: 'GitSCM', branches: [[name: '*/quickstart-repository']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/usuario/repositorio.git']]])
+                sh 'git merge desarrollo'
+            }
+        }
+    }
+}
