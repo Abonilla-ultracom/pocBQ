@@ -1,10 +1,7 @@
 node{
-   
-   
   def branchM = 'quickstart-repository'
   def branchD = '*/ci-cd_develop'  
   def changeId
-
    
   stage('Configurar usuario') {
       script {  env.GIT_AUTHOR_EMAIL = 'abonilla@ultracom.com.co'

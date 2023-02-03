@@ -1,3 +1,4 @@
 node_modules/
 .ads
 dataform.json
+.Jenkinsfile
