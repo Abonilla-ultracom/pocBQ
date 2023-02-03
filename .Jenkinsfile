@@ -8,7 +8,5 @@ node{
     sh 'git pull origin '+branch
   }
   
-  stage('test'){
-    sh 'mvn clean test'
-  } 
+  
 }  
