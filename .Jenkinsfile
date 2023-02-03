@@ -8,7 +8,7 @@ node{
     sh 'git pull origin '+branch
   }
   stage('merge changes'){
-    sh 'git merge origin' +branch
+    sh 'git merge origin ' +branch
   }
   stage('push changes'){
     sh 'git push origin '+branch
