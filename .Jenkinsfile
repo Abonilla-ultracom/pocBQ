@@ -9,7 +9,7 @@ node{
   }
   
   stage('push changes'){
-    sh 'git push origin '+branch
+    sh 'git push origin '+ci-cd_develop
     changeId = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
   }
   stage('approve changes'){
