@@ -1,3 +1,6 @@
+import jenkins.model.*
+jenkins = Jenkins.instance
+
 node{
   def branch = 'ci-cd_develop'  
   def changeId
@@ -8,7 +11,7 @@ node{
     sh 'git pull origin '+branch
   }
   stage('merge changes'){
-    sh 'git merge origin ci-cd_develop'
+    sh 'git merge origin'
   }
   stage('push changes'){
     sh 'git push origin '+branch
