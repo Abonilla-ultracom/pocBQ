@@ -1,4 +1,8 @@
 node{
+    environment {
+        USER_NAME = "Abonilla-ultracom"
+        USER_EMAIL = "abonilla@ultracom.com.co"
+    }
   def branch = 'quickstart-repository'  
   def changeId
   stage('checkout'){
