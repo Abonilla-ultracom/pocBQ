@@ -1,4 +1,4 @@
--- test CICD
+-- test CICD v2
 BEGIN  CREATE OR REPLACE TABLE poc-ci-cd-dev.capa_cruda.prueba_juan as
 SELECT * FROM poc-ci-cd-dev.fuentes.estado;
 END
