@@ -1,7 +1,7 @@
 node{
    
   def branchM = 'quickstart-repository'
-  def branchD = 'origin/ci-cd_develop'  
+  def branchD = '*/ci-cd_develop'  
   def changeId
 
    
