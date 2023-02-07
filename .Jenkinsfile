@@ -22,14 +22,9 @@ node{
   //sh 'git commit -m "Actualizando a la última versión"'
   // Generamos un pull request a producción
   git branch: 'ci-cd_develop', url: 'https://Abonilla-ultracom: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@github.com/Abonilla-ultracom/pocBQ.git'
-<<<<<<< HEAD
-  sh 'git push origin  ci-cd_develop'
-  sh 'git pull request ci-cd_develop'
-=======
   sh 'git push origin  ci-cd_develop' 
   //sh 'git pull request  ci-cd_develop'
   sh 'git merge ci-cd_develop'
->>>>>>> refs/heads/ci-cd_develop
   }
  }
 }
