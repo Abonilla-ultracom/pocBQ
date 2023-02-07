@@ -23,25 +23,10 @@ node{
   // Generamos un pull request a producción
   git branch: 'ci-cd_develop', url: 'https://Abonilla-ultracom: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@github.com/Abonilla-ultracom/pocBQ.git'
   sh 'git push origin  ci-cd_develop' 
+   sh 'git requestPull: source: 'develop' target: 'production''
   //sh 'git pull origin quickstart-repository'
   //sh 'git merge ci-cd_develop'
   }
-  stage('Verificar cambios') {
-            
-    script {
-      echo 'Verificando si hay cambios en la rama de desarrollo...'
-      git branch: 'ci-cd_develop', url: 'https://Abonilla-ultracom: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@github.com/Abonilla-ultracom/pocBQ.git'
-      if (currentBuild.changeSets.size() > 0) {
-      echo 'Cambios detectados, generando pull request a producción'
-      git branch: 'quickstart-repository', url: 'https://Abonilla-ultracom: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@github.com/Abonilla-ultracom/pocBQ.git'
-      git pull request: [
-        title: 'Actualización producción',
-        body: 'Se generará un pull request desde la rama de desarrollo a la de producción.',
-        from: 'ci-cd_develop',
-        to: 'quickstart-repository',
-        branch: 'ci-cd_develop']
-        } else {
-          echo 'No se detectaron cambios, no se genero el pull request'}
  }
 }
 
