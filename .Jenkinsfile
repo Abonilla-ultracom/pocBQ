@@ -15,19 +15,14 @@ node{
   stage('Cambios desde la rama de desarrollo') {
             
     checkout([$class: 'GitSCM', branches: [[name: branchD]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://Abonilla-ultracom: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@github.com/Abonilla-ultracom/pocBQ.git', credentialsId: '0abb7957-5f3c-40b7-91d0-5f067e64be27']]])
-    //sh 'git commit -m "Actualizando a la última versión"'
-     //git checkout('-b', branchD)
-        sh 'git add('-A')'
-        git commit('-m', 'Creación de pull request')
-        git push('origin', branchD)
-        github.createPullRequest('branchM', branchD, 'Nuevo pull request')
     }
   
-  //stage('Procesar cambios') {
+  stage('Procesar cambios') {
   // Hacemos el commit de los cambios
   //sh 'git commit -m "Actualizando a la última versión"'
   // Generamos un pull request a producción
-  //sh 'git push origin ci-cd_develop:branchM' }
+  git branch: 'ci-cd_develop', url: 'https://Abonilla-ultracom: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@github.com/Abonilla-ultracom/pocBQ.git'
+  sh 'git push origin ci-cd_develop:branchM' }
   
   stage('Migrar cambios a la rama de producción') {
             
