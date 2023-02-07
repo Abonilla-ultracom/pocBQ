@@ -1,7 +1,8 @@
 
 node{
   
-  def branchD = '*/ci-cd_develop'  
+  def branchD = '*/ci-cd_develop'
+  def branchM = '*/quickstart-repository'  
   
    
   stage('Configurar usuario') {
@@ -21,7 +22,9 @@ node{
   // Hacemos el commit de los cambios
   //sh 'git commit -m "Actualizando a la última versión"'
   // Generamos un pull request a producción
-  sh 'git push origin ci-cd_develop:quickstart-repository'}
+  sh 'git push origin'+ branchD:branchM
+  
+  }
   
   stage('Migrar cambios a la rama de producción') {
             
