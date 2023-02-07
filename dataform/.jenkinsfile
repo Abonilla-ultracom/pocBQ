@@ -13,3 +13,4 @@ node {
         sh 'dataform deploy --env production'
     }
 }
+test
