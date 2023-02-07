@@ -17,7 +17,7 @@ node{
     checkout([$class: 'GitSCM', branches: [[name: branchD]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://Abonilla-ultracom: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@github.com/Abonilla-ultracom/pocBQ.git', credentialsId: '0abb7957-5f3c-40b7-91d0-5f067e64be27']]])
     //sh 'git commit -m "Actualizando a la última versión"'
      //git checkout('-b', branchD)
-        git add('-A')
+        sh 'git add('-A')'
         git commit('-m', 'Creación de pull request')
         git push('origin', branchD)
         github.createPullRequest('branchM', branchD, 'Nuevo pull request')
