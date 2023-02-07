@@ -19,8 +19,7 @@ node{
   // Hacemos el commit de los cambios
   
   git branch: 'ci-cd_develop', url: 'https://Abonilla-ultracom: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@github.com/Abonilla-ultracom/pocBQ.git'
-  sh 'git add .'
-  sh 'git commit -m "actualizacion ultimo cambio"'
+  
   sh 'git push origin  ci-cd_develop' 
   sh 'git checkout quickstart-repository'
   //sh 'git request-pull ci-cd_develop https://Abonilla-ultracom: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@github.com/Abonilla-ultracom/pocBQ.git quickstart-repository'
