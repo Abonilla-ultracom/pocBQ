@@ -21,7 +21,7 @@ node{
   // Hacemos el commit de los cambios
   //sh 'git commit -m "Actualizando a la última versión"'
   // Generamos un pull request a producción
-  sh 'git push origin develop:production'}
+  sh 'git push origin ci-cd_develop:quickstart-repository'}
   
   stage('Migrar cambios a la rama de producción') {
             
