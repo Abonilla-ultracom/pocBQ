@@ -22,7 +22,7 @@ node{
   // Hacemos el commit de los cambios
   //sh 'git commit -m "Actualizando a la última versión"'
   // Generamos un pull request a producción
-  sh 'git push origin'+ branchD:branchM }
+  sh 'git push origin branchD:branchM' }
   
   stage('Migrar cambios a la rama de producción') {
             
