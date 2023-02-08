@@ -16,7 +16,7 @@ pipeline {
         steps {
           sh 'git pull --rebase origin ci-cd_develop'
       //    sh 'git push origin ci-cd_develop'
-          sh 'git request-pull ci-cd_develop HEAD:quickstart-repository'
+          sh 'git request-pull ci-cd_develop:quickstart-repository'
       }
     }
   }
