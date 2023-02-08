@@ -1,6 +1,6 @@
 pipeline {
   agent {
-    label 'kubernetes'
+    label 'none'
   }
   environment {
     GIT_REPO = 'https://Abonilla-ultracom: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@github.com/Abonilla-ultracom/pocBQ.git'
