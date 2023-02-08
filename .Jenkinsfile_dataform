@@ -1,10 +1,43 @@
-pipeline {
-    agent any 
-    stages {
-        stage('Stage 1') {
-            steps {
-                echo 'Hello world!' 
-            }
-        }
-    }
+node{
+
+  //def projectName = "ci-cd"
+  def productionBranch = "quickstart-repository"
+
+  stage('checkout'){
+  checkout([$class: 'GitSCM', branches: [[name: productionBranch]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '0abb7957-5f3c-40b7-91d0-5f067e64be27', url: 'https://Abonilla-ultracom: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@github.com/Abonilla-ultracom/pocBQ.git']]])
+  }
+    //    stage('Build') {
+    //        steps {
+    //            container('docker') {
+    //                sh 'docker build -t <username>/<projectname>:1.0 .'
+    //            }
+    //        }
+    //    }
+    //    stage('Test') {
+    //        steps {
+    //            container('docker') {
+    //                sh 'docker run -ti <username>/<projectname>:1.0 npm test'
+    //            }
+    //        }
+    //    }
+        stage('Deploy') {
+    //        steps {
+    //            script {
+    //                def clusterName = 'ads'
+    //                def projectName = 'ci-cd'
+    // //               def deploymentName = '${projectName}-deployment'
+    //                def serviceName = '${projectName}-service'
+    //                def imageName = '${projectName}:1.0'
+    //                def cluster = kubernetes.getCluster(clusterName)
+    //                def deployment = kubernetes.loadTemplate("deployment.yml")
+    //                deployment.spec.template.spec.containers[0].image = imageName
+    //                cluster.createDeployment(deployment)
+    //                def service = kubernetes.loadTemplate("service.yml")
+    //                service.metadata.name = serviceName
+    //                cluster.createService(service)
+                }
+    //        }
+    //    }
+    //}
+  //}
 }

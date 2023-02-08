@@ -1,0 +1,20 @@
+# Despliegue de rama master en GitHub a un Dataform en GCP
+
+apiVersion: dataform.cloud/v1alpha1
+kind: Dataform
+metadata:
+  name: my-dataform
+spec:
+  project: my-project-name
+  repository:
+    url: https://github.com/my-repo/my-dataform.git
+    branch: master
+  execution:
+    engine: bigquery
+    environment:
+      project: my-project-name
+      dataset: my-dataset-name
+  resources:
+    - name: my-table-name
+      type: table
+      source: my-view-name
