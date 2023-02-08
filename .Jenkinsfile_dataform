@@ -1,6 +1,6 @@
 pipeline {
 
-  def projectName = "ci-cd"
+  //def projectName = "ci-cd"
   def productionBranch = "quickstart-repository"
 
     agent any
