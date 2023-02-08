@@ -1,6 +1,7 @@
 pipeline {
-  projectName = "ci-cd"
-  productionBranch = "quickstart-repository"
+
+  def projectName = "ci-cd"
+  def productionBranch = "quickstart-repository"
 
     agent any
     stages {
