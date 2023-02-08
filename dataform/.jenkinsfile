@@ -1,16 +1,10 @@
-node {
-    stage('Conexión GCP') {
-        withCredentials([string(credentialsId: 'MyCredential', variable: 'GCP_CRED')]) {
-            sh 'gcloud auth activate-service-account --key-file ${GCP_CRED}'
-            sh 'gcloud config set project <PROJECT_ID>'
+pipeline {
+    agent any 
+    stages {
+        stage('Stage 1') {
+            steps {
+                echo 'Hello world!' 
+            }
         }
     }
-    stage('Dataform') {
-        sh 'dataform init --project <PROJECT_ID>'
-        sh 'dataform push --push-all --env production'
-    }
-    stage('Despliegue') {
-        sh 'dataform deploy --env production'
-    }
 }
-test
