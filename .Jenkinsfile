@@ -16,7 +16,7 @@ node{
   
   stage('Procesar cambios dev') {
   
-  git branch: 'ci-cd_develop', 
+  //git branch: 'ci-cd_develop', 
   url: 'https://Abonilla-ultracom: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@github.com/Abonilla-ultracom/pocBQ.git'
   //sh 'git pull origin ci-cd_develop'
   //sh 'git push origin  ci-cd_develop' 
