@@ -16,14 +16,14 @@ pipeline {
             }
         }
         stage('Deploy') {
-            steps {
-                withCredentials([usernamePassword(credentialsId: 'gcp-credentials', usernameVariable: 'GCP_USER', passwordVariable: 'GCP_PASSWORD')]) {
-                    sh 'gcloud auth login --account=$GCP_USER --password=$GCP_PASSWORD'
-                    sh 'gcloud config set project [PROJECT_ID]'
-                    sh 'gcloud config set compute/zone [ZONE]'
-                    sh 'gcloud dataflow jobs run ci-cd \\
-                        --gcs-location gs://[DATAFLOW_TEMPLATE_PATH] \\
-                        --parameters branch=master'
+            //steps {
+              //  withCredentials([usernamePassword(credentialsId: 'gcp-credentials', usernameVariable: 'GCP_USER', passwordVariable: 'GCP_PASSWORD')]) {
+                //    sh 'gcloud auth login --account=$GCP_USER --password=$GCP_PASSWORD'
+                  //  sh 'gcloud config set project [PROJECT_ID]'
+                    ////sh 'gcloud config set compute/zone [ZONE]'
+                    //sh 'gcloud dataflow jobs run ci-cd \\
+                      //  --gcs-location gs://[DATAFLOW_TEMPLATE_PATH] \\
+                       // --parameters branch=master'
                 }
             }
         }
