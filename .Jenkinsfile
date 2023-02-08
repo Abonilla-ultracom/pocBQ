@@ -4,7 +4,7 @@ def branchD = '*/ci-cd_develop'
     stages {
         stage('Detect Development Branch') {
             steps {
-                branch: branchD, url: 'https://Abonilla-ultracom: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@github.com/Abonilla-ultracom/pocBQ.git'
+                git branch: branchD, url: 'https://Abonilla-ultracom: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@github.com/Abonilla-ultracom/pocBQ.git'
             }
         }
         stage('Generate Pull Request') {
