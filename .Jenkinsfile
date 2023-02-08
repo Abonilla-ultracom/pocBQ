@@ -38,7 +38,7 @@ node{
   //sh 'git push origin  ci-cd_develop' 
   sh 'git checkout quickstart-repository'
   sh 'git pull origin quickstart-repository'
-  //sh 'git checkout quickstart-repository'
+  sh 'git checkout quickstart-repository'
   //sh 'git merge ci-cd_develop'
   //sh 'git push -u origin quickstart-repository'
   //sh 'git pull --rebase origin quickstart-repository'
