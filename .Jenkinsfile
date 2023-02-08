@@ -1,6 +1,6 @@
 node{
   
-  //def branchD = '*/ci-cd_develop'
+  def branchD = '*/ci-cd_develop'
   //def branchM = '*/quickstart-repository'  
     
   //stage('Configurar usuario') {
