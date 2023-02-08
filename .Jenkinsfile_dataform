@@ -24,8 +24,8 @@ pipeline {
                     //sh 'gcloud dataflow jobs run ci-cd \\
                       //  --gcs-location gs://[DATAFLOW_TEMPLATE_PATH] \\
                        // --parameters branch=master'
-                }
-            }
+                //}
+            //}
         }
     }
 }
