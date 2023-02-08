@@ -15,8 +15,8 @@ pipeline {
       stage('Pull Request') {
         steps {
           sh 'git pull --rebase origin ci-cd_develop'
-          sh 'git push origin ci-cd_develop'
-          sh 'git request-pull origin ci-cd_develop HEAD:master'
+      //    sh 'git push origin ci-cd_develop'
+      //    sh 'git request-pull origin ci-cd_develop HEAD:master'
       }
     }
   }
