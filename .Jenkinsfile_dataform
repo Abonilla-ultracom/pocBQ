@@ -1,22 +1,31 @@
 pipeline {
-  agent {
-    label 'none'
-  }
-  environment {
-    GIT_REPO = 'https://Abonilla-ultracom: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@github.com/Abonilla-ultracom/pocBQ.git'
-    GCP_PROJECT = 'poc-ci-cd'
-  }
-  stages {
-    stage('Clone') {
-      steps {
-        git branch: 'quickstart-repository', url: GIT_REPO
-      }
+    agent {
+        kubernetes {
+            label 'jenkins-cd'
+        }
     }
-    stage('Deploy') {
-      steps {
-        sh "gcloud config set project $GCP_PROJECT"
-        sh "gcloud app deploy ./app.yaml --promote"
-      }
+    stages {
+        stage('Build') {
+            steps {
+                git branch: 'quickstart-repository', url: 'https://Abonilla-ultracom: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@github.com/Abonilla-ultracom/pocBQ.git'
+            }
+        }
+        stage('Test') {
+            steps {
+                sh 'mvn test'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'gcp-credentials', usernameVariable: 'GCP_USER', passwordVariable: 'GCP_PASSWORD')]) {
+                    sh 'gcloud auth login --account=$GCP_USER --password=$GCP_PASSWORD'
+                    sh 'gcloud config set project [PROJECT_ID]'
+                    sh 'gcloud config set compute/zone [ZONE]'
+                    sh 'gcloud dataflow jobs run ci-cd \\
+                        --gcs-location gs://[DATAFLOW_TEMPLATE_PATH] \\
+                        --parameters branch=master'
+                }
+            }
+        }
     }
-  }
 }
