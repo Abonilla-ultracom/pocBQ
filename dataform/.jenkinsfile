@@ -1,16 +1,18 @@
-node {
-    stage('Conexión GCP') {
-        withCredentials([string(credentialsId: 'MyCredential', variable: 'GCP_CRED')]) {
-            sh 'gcloud auth activate-service-account --key-file ${GCP_CRED}'
-            sh 'gcloud config set project <PROJECT_ID>'
+pipeline {
+    agent any
+    stages {
+        stage('GCP to GitHub') {
+            steps {
+                // Connect to Google Cloud Platform
+                withCredentials([file(credentialsId: 'poc-ci-cd-375313', variable: 'GCP_CREDS')]) {
+                    sh 'gcloud auth activate-service-account --key-file $GCP_CREDS'
+                }
+    
+                // Connect to GitHub
+                withCredentials([usernamePassword(credentialsId: '0abb7957-5f3c-40b7-91d0-5f067e64be27', usernameVariable: '/Abonilla-ultracom', passwordVariable: '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')]) {
+                    git credentialsId: '0abb7957-5f3c-40b7-91d0-5f067e64be27', url: 'https://Abonilla-ultracom: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@github.com/Abonilla-ultracom/pocBQ.git'
+                }
+            }
         }
     }
-    stage('Dataform') {
-        sh 'dataform init --project <PROJECT_ID>'
-        sh 'dataform push --push-all --env production'
-    }
-    stage('Despliegue') {
-        sh 'dataform deploy --env production'
-    }
 }
-test
