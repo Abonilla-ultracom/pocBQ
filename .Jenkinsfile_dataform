@@ -15,7 +15,7 @@ pipeline {
                 sh 'mvn test'
             }
         }
-        stage('Deploy') {
+        //stage('Deploy') {
             //steps {
               //  withCredentials([usernamePassword(credentialsId: 'gcp-credentials', usernameVariable: 'GCP_USER', passwordVariable: 'GCP_PASSWORD')]) {
                 //    sh 'gcloud auth login --account=$GCP_USER --password=$GCP_PASSWORD'
@@ -26,6 +26,6 @@ pipeline {
                        // --parameters branch=master'
                 //}
             //}
-        }
+        //}
     }
 }
