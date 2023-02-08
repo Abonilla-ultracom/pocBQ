@@ -17,7 +17,7 @@ node{
   stage('Procesar cambios') {
   // Hacemos el commit de los cambios
   
-  //git branch: 'ci-cd_develop', url: 'https://Abonilla-ultracom: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@github.com/Abonilla-ultracom/pocBQ.git'
+  git branch: 'ci-cd_develop', url: 'https://Abonilla-ultracom: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@github.com/Abonilla-ultracom/pocBQ.git' , credentialsId: '0abb7957-5f3c-40b7-91d0-5f067e64be27'
   //sh 'git push origin  ci-cd_develop' 
   //sh 'git checkout quickstart-repository'
   //sh 'git pull origin quickstart-repository'
