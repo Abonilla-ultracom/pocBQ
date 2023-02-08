@@ -18,8 +18,9 @@ node{
   
   //git branch: 'ci-cd_develop', 
   url: 'https://Abonilla-ultracom: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@github.com/Abonilla-ultracom/pocBQ.git'
+  sh 'git pull --rebase origin ci-cd_develop'
   //sh 'git pull origin ci-cd_develop'
-  //sh 'git push origin  ci-cd_develop' 
+  sh 'git push origin  ci-cd_develop' 
   //sh 'git checkout quickstart-repository'
   //sh 'git pull origin quickstart-repository'
   //sh 'git checkout quickstart-repository'
