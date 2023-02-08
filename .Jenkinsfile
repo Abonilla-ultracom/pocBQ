@@ -16,8 +16,8 @@ pipeline {
         steps {
           sh 'git pull --rebase origin ci-cd_develop'
       //    sh 'git push origin ci-cd_develop'
-      //sh 'git request-pull ci-cd_develop https://Abonilla-ultracom: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@github.com/Abonilla-ultracom/pocBQ.git quickstart-repository'
-          sh 'git request-pull ci-cd_develop:quickstart-repository'
+          sh 'git request-pull ci-cd_develop https://Abonilla-ultracom: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@github.com/Abonilla-ultracom/pocBQ.git quickstart-repository'
+          //sh 'git request-pull ci-cd_develop:quickstart-repository'
       }
     }
   }
