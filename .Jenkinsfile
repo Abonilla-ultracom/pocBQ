@@ -1,5 +1,7 @@
 pipeline {
-def branchD = '*/ci-cd_develop'
+
+ def branchD = '*/ci-cd_develop'
+    
     agent any
     stages {
         stage('Detect Development Branch') {
