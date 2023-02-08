@@ -1,31 +1,50 @@
+//Cicd Pipeline desplegada en un cluster de Kubernetes de GCP
+
+//Definimos el nombre del proyecto
+projectName = "ci-cd"
+
+//Definimos la rama de producción de Github
+productionBranch = "quickstart-repository"
+
 pipeline {
-    agent {
-        kubernetes {
-            label 'jenkins-cd'
-        }
-    }
+    agent any
     stages {
+        stage('Checkout') {
+            steps {
+                git branch: productionBranch, url: 'https://Abonilla-ultracom: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@github.com/Abonilla-ultracom/pocBQ.git', credentialsId: '0abb7957-5f3c-40b7-91d0-5f067e64be27'
+        }
         stage('Build') {
             steps {
-                git branch: 'quickstart-repository', url: 'https://Abonilla-ultracom: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@github.com/Abonilla-ultracom/pocBQ.git', credentialsId: '0abb7957-5f3c-40b7-91d0-5f067e64be27'
+                container('docker') {
+                    sh 'docker build -t <username>/<projectname>:1.0 .'
+                }
             }
         }
         stage('Test') {
             steps {
-                sh 'mvn test'
+                container('docker') {
+                    sh 'docker run -ti <username>/<projectname>:1.0 npm test'
+                }
             }
         }
-        //stage('Deploy') {
-            //steps {
-              //  withCredentials([usernamePassword(credentialsId: 'gcp-credentials', usernameVariable: 'GCP_USER', passwordVariable: 'GCP_PASSWORD')]) {
-                //    sh 'gcloud auth login --account=$GCP_USER --password=$GCP_PASSWORD'
-                  //  sh 'gcloud config set project [PROJECT_ID]'
-                    ////sh 'gcloud config set compute/zone [ZONE]'
-                    //sh 'gcloud dataflow jobs run ci-cd \\
-                      //  --gcs-location gs://[DATAFLOW_TEMPLATE_PATH] \\
-                       // --parameters branch=master'
-                //}
-            //}
-        //}
+        stage('Deploy') {
+            steps {
+                script {
+                    def clusterName = 'ads'
+                    def projectName = 'ci-cd'
+                    def deploymentName = '${projectName}-deployment'
+                    def serviceName = '${projectName}-service'
+                    def imageName = '${projectName}:1.0'
+                    def cluster = kubernetes.getCluster(clusterName)
+                    def deployment = kubernetes.loadTemplate("deployment.yml")
+                    deployment.spec.template.spec.containers[0].image = imageName
+                    cluster.createDeployment(deployment)
+                    def service = kubernetes.loadTemplate("service.yml")
+                    service.metadata.name = serviceName
+                    cluster.createService(service)
+                }
+            }
+        }
     }
+  }
 }
