@@ -1,10 +1,22 @@
 pipeline {
-    agent any 
-    stages {
-        stage('Stage 1') {
-            steps {
-                echo 'Hello world!' 
-            }
-        }
+  agent {
+    label 'master'
+  }
+  environment {
+    GIT_REPO = 'https://Abonilla-ultracom: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@github.com/Abonilla-ultracom/pocBQ.git'
+    GCP_PROJECT = 'poc-ci-cd'
+  }
+  stages {
+    stage('Clone') {
+      steps {
+        git branch: 'quickstart-repository', url: GIT_REPO
+      }
     }
+    stage('Deploy') {
+      steps {
+        sh "gcloud config set project $GCP_PROJECT"
+        sh "gcloud app deploy ./app.yaml --promote"
+      }
+    }
+  }
 }
