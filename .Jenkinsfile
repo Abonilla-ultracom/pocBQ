@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Detect Development Branch') {
             steps {
-                git branch: 'ci-cd_develop', url: 'https://Abonilla-ultracom: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@github.com/Abonilla-ultracom/pocBQ.git'
+                git branch: 'ci-cd_develop', url: 'https://Abonilla-ultracom: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@github.com/Abonilla-ultracom/pocBQ.git' , credentialsId: '0abb7957-5f3c-40b7-91d0-5f067e64be27'
             }
         }
         stage('Generate Pull Request') {
