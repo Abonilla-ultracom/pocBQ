@@ -29,7 +29,7 @@ node{
   //sh 'git request-pull ci-cd_develop https://Abonilla-ultracom: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@github.com/Abonilla-ultracom/pocBQ.git quickstart-repository'
   //sh 'git merge ci-cd_develop'
 
-  }
+  //}
 }
 
 
