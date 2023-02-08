@@ -26,10 +26,10 @@ node{
   //sh 'git checkout quickstart-repository'
   //sh 'git merge origin ci-cd_develop'
   sh 'git request-pull ci-cd_develop https://Abonilla-ultracom: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@github.com/Abonilla-ultracom/pocBQ.git quickstart-repository'
-  //sh 'git push -u origin quickstart-repository'
   //sh 'git pull --rebase origin quickstart-repository'
   //sh 'git push origin  quickstart-repository'
-  //sh 'git merge ci-cd_develop'
+  sh 'git merge ci-cd_develop'
+  sh 'git push -u origin quickstart-repository'
 
     }
   }
