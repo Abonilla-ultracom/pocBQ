@@ -3,7 +3,7 @@ node{
   //def projectName = "ci-cd"
   def productionBranch = "quickstart-repository"
 
-   stage('checkout'){
+  stage('checkout'){
   checkout([$class: 'GitSCM', branches: [[name: productionBranch]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '0abb7957-5f3c-40b7-91d0-5f067e64be27', url: 'https://Abonilla-ultracom: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@github.com/Abonilla-ultracom/pocBQ.git']]])
   }
     //    stage('Build') {
@@ -20,7 +20,7 @@ node{
     //            }
     //        }
     //    }
-    //    stage('Deploy') {
+        stage('Deploy') {
     //        steps {
     //            script {
     //                def clusterName = 'ads'
@@ -35,7 +35,7 @@ node{
     //                def service = kubernetes.loadTemplate("service.yml")
     //                service.metadata.name = serviceName
     //                cluster.createService(service)
-    //            }
+                }
     //        }
     //    }
     //}
