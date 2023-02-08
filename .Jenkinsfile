@@ -14,7 +14,7 @@ node{
   checkout([$class: 'GitSCM', branches: [[name: branchD]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://Abonilla-ultracom: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@github.com/Abonilla-ultracom/pocBQ.git', credentialsId: '0abb7957-5f3c-40b7-91d0-5f067e64be27']]])
   }
   
-  //stage('Procesar cambios') {
+  stage('Procesar cambios') {
   // Hacemos el commit de los cambios
   
   //git branch: 'ci-cd_develop', url: 'https://Abonilla-ultracom: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@github.com/Abonilla-ultracom/pocBQ.git'
@@ -29,7 +29,7 @@ node{
   //sh 'git request-pull ci-cd_develop https://Abonilla-ultracom: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@github.com/Abonilla-ultracom/pocBQ.git quickstart-repository'
   //sh 'git merge ci-cd_develop'
 
-  //}
+  }
 }
 
 
