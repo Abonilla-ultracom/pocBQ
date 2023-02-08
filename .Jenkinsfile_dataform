@@ -1,12 +1,7 @@
-//Cicd Pipeline desplegada en un cluster de Kubernetes de GCP
-
-//Definimos el nombre del proyecto
-projectName = "ci-cd"
-
-//Definimos la rama de producción de Github
-productionBranch = "quickstart-repository"
-
 pipeline {
+  projectName = "ci-cd"
+  productionBranch = "quickstart-repository"
+
     agent any
     stages {
         stage('Checkout') {
