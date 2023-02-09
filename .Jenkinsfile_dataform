@@ -6,7 +6,7 @@ pipeline{
     stages {
         stage('Authentication'){
             steps {
-                withCredentials([string(credentialsId: GCP_ACCOUNT, variable: 'client_email')]) {
+                withCredentials([string(credentialsId: GCP_ACCOUNT, variable: 'jenkins-sa-key (2).json')]) {
                     sh 'gcloud auth activate-service-account --key-file=$GCP_ACCOUNT'
                 }
             }
