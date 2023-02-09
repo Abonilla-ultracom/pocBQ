@@ -1,4 +1,6 @@
 // Inicio 
+import com.google.jenkins.plugins.credentials.oauth.GoogleRobotPrivateKeyCredentials
+import com.google.jenkins.plugins.credentials.oauth.GoogleOAuth2ScopeRequirement
 
 // Inicializar el entorno de Jenkins
 pipeline {
@@ -21,7 +23,7 @@ pipeline {
         stage('Conexión GCP') {
             steps {
                 echo 'Conectando con el proyecto de GCP ...'
-                withCredentials([string(credentialsId: 'poc-ci-cd-375313', variable: 'GCP_CREDENTIALS')]) {
+                withCredentials([string(credentialsId: 'poc-ci-cd', variable: 'GCP_CREDENTIALS')]) {
                     sh 'gcloud auth activate-service-account --key-file $GCP_CREDENTIALS'
                     sh 'gcloud config set project $GCP_PROJECT'
                 }
