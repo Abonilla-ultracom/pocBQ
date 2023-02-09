@@ -12,8 +12,8 @@ pipeline {
     //    
         stage('clean workspaces -----------') { 
             steps {
-    //          cleanWs()
-    //          sh 'env'
+              cleanWs()
+              sh 'env'
             } //steps
         }  //stage
 //
