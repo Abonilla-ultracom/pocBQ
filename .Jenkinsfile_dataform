@@ -10,12 +10,12 @@ pipeline {
     
     stages{
     //    
-    //    stage('clean workspaces -----------') { 
+        stage('clean workspaces -----------') { 
     //        steps {
     //          cleanWs()
     //          sh 'env'
     //        } //steps
-    //    }  //stage
+        }  //stage
 //
     //    
     //    stage("Google Cloud connection -----------------"){
