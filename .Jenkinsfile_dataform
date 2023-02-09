@@ -1,6 +1,10 @@
+// Inicio 
+
+// Inicializar el entorno de Jenkins
 pipeline {
-    agent any
-    options {disableConcurrentBuilds()}
+    agent any 
+    
+    // Definir un entorno para el flujo de trabajo
     environment {
         GOOGLE_PROJECT_ID = "poc-ci-cd-375313" 
         GOOGLE_PROJECT_NAME = "poc-ci-cd"
@@ -8,29 +12,35 @@ pipeline {
         GOOGLE_CLOUD_KEYFILE_JSON = credentials('poc-ci-cd')
     }
     
-    stages{
-        
-        stage('clean workspaces -----------') { 
+    // Definir un punto de inicio para el flujo de trabajo
+    stages {
+        stage('Inicio') {
             steps {
-              cleanWs()
-              sh 'env'
-            } //steps
-        }  //stage
-
+                echo 'Iniciando el flujo de trabajo...'
+            }
+        }
         
-        stage("Google Cloud connection -----------------"){
+        // Conectar con el proyecto de GCP
+        stage('Conexión GCP') {
             steps {
+                echo 'Conectando con el proyecto de GCP ...'
+                withCredentials([file(credentialsId: 'poc-ci-cd', variable: 'GC_KEY')]) {
+                sh("gcloud auth activate-service-account --key-file=${GC_KEY}")
+                sh("gcloud container clusters get-credentials prod --zone northamerica-northeast1-a --project ${project}")
+                  
+                }
                 
-                sh("gcloud auth activate-service-account --key-file=${GOOGLE_APPLICATION_CREDENTIALS}")
-                sh 'gcloud config set project ${GOOGLE_PROJECT_ID}'
-                sh '''
-                  gcloud pubsub topics list
-                  gcloud projects list
-                  gcloud compute networks list
-                '''
-            } //steps
-        }  //stage
-    
-      
-   }  // stages
-} //pipeline
+              }
+          }
+        
+        // Desplegar los cambios en Dataform
+        stage('Dataform') {
+            steps {
+                echo 'Desplegando los cambios en Dataform ...'
+                sh 'dataform deploy --project $GCP_PROJECT --source-repo gitlab://<mi-grupo>/<mi-proyecto>#master'
+            }
+        }
+    }
+}
+
+// Fin
