@@ -1,46 +1,15 @@
-// Inicio 
-
-// Inicializar el entorno de Jenkins
 pipeline {
-    agent any 
-    
-    // Definir un entorno para el flujo de trabajo
-    environment {
-        GCP_PROJECT = "poc-ci-cd-375313" 
-        GCP_PROJECT_NAME = "poc-ci-cd"
-        GOOGLE_APPLICATION_CREDENTIALS = credentials('poc-ci-cd')
-        GOOGLE_CLOUD_KEYFILE_JSON = credentials('poc-ci-cd')
-    }
-    
-    // Definir un punto de inicio para el flujo de trabajo
-    stages {
-        stage('Inicio') {
-            steps {
-                echo 'Iniciando el flujo de trabajo...'
-            }
+    agent {
+        docker {
+            image 'gcr.io/cloud-builders/gcloud'
+            args 'auth activate-service-account --key-file=jenkins-sa-key.json'
         }
-        
-        // Conectar con el proyecto de GCP
-        stage('Conexión GCP') {
+    }
+    stages {
+        stage('Connect to GCP') {
             steps {
-                echo 'Conectando con el proyecto de GCP ...'
-                withCredentials([file(credentialsId: 'jenkins_secret', variable: 'private_key')]) {
-                sh("gcloud auth activate-service-account --key-file=${private_key}")
-                sh("gcloud container clusters get-credentials prod --zone northamerica-northeast1-a --project ${project}")
-                  
-                }
-                
-              }
-          }
-        
-        // Desplegar los cambios en Dataform
-        stage('Dataform') {
-            steps {
-                echo 'Desplegando los cambios en Dataform ...'
-                sh 'dataform deploy --project $GCP_PROJECT --source-repo gitlab://<mi-grupo>/<mi-proyecto>#master'
+                sh 'gcloud config set project [poc-ci-cd-375313]'
             }
         }
     }
 }
-
-// Fin
