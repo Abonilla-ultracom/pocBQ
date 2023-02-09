@@ -2,7 +2,7 @@ pipeline{
     agent any
     //environment {
      //   GCP_ACCOUNT = credentials('jenkins_secret')
-    }
+    //}
     stages {
         stage('Authentication'){
             steps {
@@ -17,5 +17,5 @@ pipeline{
         //        sh 'gcloud config set project <GCP PROJECT NAME>'
         //    }
         //}
-    //}
+    }
 }
