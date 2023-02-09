@@ -1,21 +1,28 @@
-pipeline {
-    agent any
-    options {disableConcurrentBuilds()}
-    environment {
+node{
+    //agent any
+    //options {disableConcurrentBuilds()}
+    //environment {
+    //    GOOGLE_PROJECT_ID = "poc-ci-cd-375313" 
+    //    GOOGLE_PROJECT_NAME = "poc-ci-cd"
+    //    GOOGLE_APPLICATION_CREDENTIALS = credentials('poc-ci-cd')
+    //    GOOGLE_CLOUD_KEYFILE_JSON = credentials('poc-ci-cd')
+    //}
+
+    stage('checkout'){
         GOOGLE_PROJECT_ID = "poc-ci-cd-375313" 
         GOOGLE_PROJECT_NAME = "poc-ci-cd"
         GOOGLE_APPLICATION_CREDENTIALS = credentials('poc-ci-cd')
         GOOGLE_CLOUD_KEYFILE_JSON = credentials('poc-ci-cd')
     }
     
-    stages{
+    //stages{
     //    
-        stage('clean workspaces -----------') { 
-            steps {
-              cleanWs()
-              sh 'env'
-            } //steps
-        }  //stage
+    //    stage('clean workspaces -----------') { 
+    //        steps {
+    //          cleanWs()
+    //          sh 'env'
+    //        } //steps
+    //    }  //stage
 //
     //    
     //    stage("Google Cloud connection -----------------"){
@@ -32,5 +39,5 @@ pipeline {
     //    }  //stage
     
       
-   }  // stages
+   //}  // stages
 } //pipeline
