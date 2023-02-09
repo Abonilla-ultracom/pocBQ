@@ -6,8 +6,8 @@ pipeline {
     
     // Definir un entorno para el flujo de trabajo
     environment {
-        GOOGLE_PROJECT_ID = "poc-ci-cd-375313" 
-        GOOGLE_PROJECT_NAME = "poc-ci-cd"
+        GCP_PROJECT = "poc-ci-cd-375313" 
+        GCP_PROJECT_NAME = "poc-ci-cd"
         GOOGLE_APPLICATION_CREDENTIALS = credentials('poc-ci-cd')
         GOOGLE_CLOUD_KEYFILE_JSON = credentials('poc-ci-cd')
     }
@@ -24,8 +24,8 @@ pipeline {
         stage('Conexión GCP') {
             steps {
                 echo 'Conectando con el proyecto de GCP ...'
-                withCredentials([file(credentialsId: 'poc-ci-cd', GC_KEY: 'e16cdad6771155bf1ddcd2095bc2d6598f20ccc9')]) {
-                sh("gcloud auth activate-service-account --key-file=${GC_KEY}")
+                withCredentials([file(credentialsId: 'jenkins_secret', variable: 'private_key')]) {
+                sh("gcloud auth activate-service-account --key-file=${private_key}")
                 sh("gcloud container clusters get-credentials prod --zone northamerica-northeast1-a --project ${project}")
                   
                 }
