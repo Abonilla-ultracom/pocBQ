@@ -1,44 +1,36 @@
-// Inicio 
-import com.google.jenkins.plugins.credentials.oauth.GoogleRobotPrivateKeyCredentials
-import com.google.jenkins.plugins.credentials.oauth.GoogleOAuth2ScopeRequirement
-
-// Inicializar el entorno de Jenkins
 pipeline {
-    agent any 
-    
-    // Definir un entorno para el flujo de trabajo
+    agent any
+    options {disableConcurrentBuilds()}
     environment {
-        GCP_PROJECT = 'poc-ci-cd'
+        GOOGLE_PROJECT_ID = "poc-ci-cd-375313" 
+        GOOGLE_PROJECT_NAME = "poc-ci-cd"
+        GOOGLE_APPLICATION_CREDENTIALS = credentials('poc-ci-cd')
+        GOOGLE_CLOUD_KEYFILE_JSON = credentials('poc-ci-cd')
     }
     
-    // Definir un punto de inicio para el flujo de trabajo
-    stages {
-        stage('Inicio') {
-            steps {
-                echo 'Iniciando el flujo de trabajo...'
-            }
-        }
-        
-        // Conectar con el proyecto de GCP
-        stage('Conexión GCP') {
-            steps {
-                echo 'Conectando con el proyecto de GCP ...'
-                withCredentials([string(credentialsId: 'poc-ci-cd', variable: 'GCP_CREDENTIALS')]) {
-                    sh 'gcloud auth activate-service-account --key-file $GCP_CREDENTIALS'
-                    sh 'gcloud config set project $GCP_PROJECT'
-                }
-            }
-        }
-        
-        // Desplegar los cambios en Dataform
-       // stage('Dataform') {
-       //     steps {
-       //         echo 'Desplegando los cambios en Dataform ...'
-       //         sh 'dataform deploy --project $GCP_PROJECT --source-repo https://Abonilla-ultracom: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@github.com/Abonilla-ultracom/pocBQ.git'
-       //         // credentialsId: '0abb7957-5f3c-40b7-91d0-5f067e64be27'
-       //    }
-       // }
-    }
-}
-
-// Fin
+    //stages{
+    //    
+    //    stage('clean workspaces -----------') { 
+    //        steps {
+    //          cleanWs()
+    //          sh 'env'
+    //        } //steps
+    //    }  //stage
+//
+    //    
+    //    stage("Google Cloud connection -----------------"){
+    //        steps {
+    //            
+    //            sh("gcloud auth activate-service-account --key-file=${GOOGLE_APPLICATION_CREDENTIALS}")
+    //            sh 'gcloud config set project ${GOOGLE_PROJECT_ID}'
+    //            sh '''
+    //              gcloud pubsub topics list
+    //              gcloud projects list
+    //              gcloud compute networks list
+    //            '''
+    //        } //steps
+    //    }  //stage
+    
+      
+   //}  // stages
+} //pipeline
