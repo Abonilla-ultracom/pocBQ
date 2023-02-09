@@ -9,6 +9,9 @@ node{
     //}
 
     stage('checkout'){
+
+      options {disableConcurrentBuilds()}
+      environment {
         GOOGLE_PROJECT_ID = "poc-ci-cd-375313" 
         GOOGLE_PROJECT_NAME = "poc-ci-cd"
         GOOGLE_APPLICATION_CREDENTIALS = credentials('poc-ci-cd')
@@ -39,5 +42,5 @@ node{
     //    }  //stage
     
       
-   //}  // stages
+   }  // stages
 } //pipeline
