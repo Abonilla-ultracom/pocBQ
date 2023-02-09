@@ -1,14 +1,19 @@
-pipeline {
-    agent {
-        docker {
-            image 'gcr.io/cloud-builders/gcloud'
-            args 'auth activate-service-account --key-file=jenkins-sa-key.json'
-        }
+pipeline{
+    agent any
+    environment {
+        GCP_ACCOUNT = credentials('jenkins_secret')
     }
     stages {
-        stage('Connect to GCP') {
+        stage('Authentication'){
             steps {
-                sh 'gcloud config set project [poc-ci-cd-375313]'
+                withCredentials([string(credentialsId: GCP_ACCOUNT, variable: 'client_email')]) {
+                    sh 'gcloud auth activate-service-account --key-file=$GCP_ACCOUNT'
+                }
+            }
+        }
+        stage('Connection') {
+            steps {
+                sh 'gcloud config set project <GCP PROJECT NAME>'
             }
         }
     }
