@@ -24,7 +24,7 @@ pipeline {
         stage('Conexión GCP') {
             steps {
                 echo 'Conectando con el proyecto de GCP ...'
-                withCredentials([file(credentialsId: 'poc-ci-cd', variable: 'GC_KEY')]) {
+                withCredentials([file(credentialsId: 'poc-ci-cd', GC_KEY: 'e16cdad6771155bf1ddcd2095bc2d6598f20ccc9')]) {
                 sh("gcloud auth activate-service-account --key-file=${GC_KEY}")
                 sh("gcloud container clusters get-credentials prod --zone northamerica-northeast1-a --project ${project}")
                   
