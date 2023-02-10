@@ -1,24 +1,26 @@
-def label = "gcloud-command-${UUID.randomUUID().toString()}"
-
-podTemplate(label: label, yaml: """
-apiVersion: v1
-kind: Pod
-spec:
-  containers:
-  - name: gcloud
-    image: gcr.io/cloud-builders/gcloud
-    command:
-    - cat
-    tty: true
-"""
-  ) {
-
-  node(label) {
-    stage('Test -  Execution of gcloud command') {
-      container('gcloud') {
-        sh "gcloud compute zones --help"
-      }
+pipeline {
+    agent any
+    options {disableConcurrentBuilds()}
+    environment {
+        GOOGLE_PROJECT_ID = "poc-ci-cd-375313" 
+        GOOGLE_PROJECT_NAME = "poc-ci-cd"
+        GOOGLE_APPLICATION_CREDENTIALS = credentials('jenkins_secret')
+        GOOGLE_CLOUD_KEYFILE_JSON = credentials('jenkins_secret')
     }
-
-  }
-}
+    stages("Google Cloud connection -----------------"){
+        stage("Google Cloud connection -----------------"){
+            steps {
+                //sh 'gcloud version'
+                sh("gcloud auth activate-service-account --key-file=${GOOGLE_APPLICATION_CREDENTIALS}")
+                //sh 'gcloud config set project ${GOOGLE_PROJECT_ID}'
+                //sh '''
+                //  gcloud pubsub topics list
+                //  gcloud projects list
+                //  gcloud compute networks list
+                //'''
+            } //steps
+        }  //stage
+    
+      
+   }  // stages
+} //p
