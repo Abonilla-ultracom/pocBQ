@@ -11,7 +11,7 @@ pipeline {
         stage("Google Cloud connection -----------------"){
             steps {
                 //sh 'gcloud version'
-                sh("gcloud auth activate-service-account --key-file=${GOOGLE_APPLICATION_CREDENTIALS}")
+                sh("gcloud auth activate-service-account --key-file=jenkins_secret")
                 //sh 'gcloud config set project ${GOOGLE_PROJECT_ID}'
                 //sh '''
                 //  gcloud pubsub topics list
