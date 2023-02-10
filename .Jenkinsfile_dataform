@@ -1,21 +1,25 @@
-pipeline{
+pipeline {
     agent any
-    //environment {
-     //   GCP_ACCOUNT = credentials('jenkins_secret')
-    //}
-    stages {
-        stage('Authentication'){
-            steps {
-                //withCredentials([string(credentialsId: GCP_ACCOUNT, variable: 'jenkins-sa-key (2).json')]) {
-                //    sh 'gcloud auth activate-service-account --key-file=$GCP_ACCOUNT'
-                sh "gcloud version"
-                  }
-            //}
-        }
-        //stage('Connection') {
-        //    steps {
-        //        sh 'gcloud config set project <GCP PROJECT NAME>'
-        //    }
-        //}
+    options {disableConcurrentBuilds()}
+    environment {
+        GOOGLE_PROJECT_ID = "poc-ci-cd-375313" 
+        GOOGLE_PROJECT_NAME = "poc-ci-cd"
+        GOOGLE_APPLICATION_CREDENTIALS = credentials('jenkins_secret')
+        GOOGLE_CLOUD_KEYFILE_JSON = credentials('jenkins_secret')
     }
-}
+    stage("Google Cloud connection -----------------"){
+            steps {
+                
+                sh("gcloud auth activate-service-account --key-file=${GOOGLE_APPLICATION_CREDENTIALS}")
+                sh 'gcloud config set project ${GOOGLE_PROJECT_ID}'
+                sh '''
+                  gcloud pubsub topics list
+                  gcloud projects list
+                  gcloud compute networks list
+                '''
+            } //steps
+        }  //stage
+    
+      
+   //}  // stages
+} //p
