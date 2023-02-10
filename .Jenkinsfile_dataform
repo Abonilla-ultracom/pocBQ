@@ -7,7 +7,7 @@ pipeline {
         GOOGLE_APPLICATION_CREDENTIALS = credentials('jenkins_secret')
         GOOGLE_CLOUD_KEYFILE_JSON = credentials('jenkins_secret')
     }
-    stage("Google Cloud connection -----------------"){
+    stages("Google Cloud connection -----------------"){
             steps {
                 
                 sh("gcloud auth activate-service-account --key-file=${GOOGLE_APPLICATION_CREDENTIALS}")
