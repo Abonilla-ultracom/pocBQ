@@ -4,14 +4,14 @@ pipeline {
     environment {
         GOOGLE_PROJECT_ID = "poc-ci-cd-375313" 
         GOOGLE_PROJECT_NAME = "poc-ci-cd"
-        GOOGLE_APPLICATION_CREDENTIALS = credentials('jenkins_secret')
+        GOOGLE_APPLICATION_CREDENTIALS = credentials('jenkins_secret'), variable: 'private_key'
         GOOGLE_CLOUD_KEYFILE_JSON = credentials('jenkins_secret')
     }
     stages("Google Cloud connection -----------------"){
         stage("Google Cloud connection -----------------"){
             steps {
                 
-                //sh("gcloud auth activate-service-account --key-file=${GOOGLE_APPLICATION_CREDENTIALS}")
+                sh("gcloud auth activate-service-account --key-file=${GOOGLE_APPLICATION_CREDENTIALS}")
                 sh 'gcloud config set project ${GOOGLE_PROJECT_ID}'
                 //sh '''
                 //  gcloud pubsub topics list
