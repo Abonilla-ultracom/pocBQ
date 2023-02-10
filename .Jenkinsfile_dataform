@@ -8,7 +8,7 @@ pipeline{
             steps {
                 //withCredentials([string(credentialsId: GCP_ACCOUNT, variable: 'jenkins-sa-key (2).json')]) {
                 //    sh 'gcloud auth activate-service-account --key-file=$GCP_ACCOUNT'
-                //sh "gcloud version"
+                sh "gcloud version"
                   }
             //}
         }
