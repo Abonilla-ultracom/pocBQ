@@ -12,7 +12,7 @@ pipeline {
             steps {
                 
                 //sh("gcloud auth activate-service-account --key-file=${GOOGLE_APPLICATION_CREDENTIALS}")
-                //sh 'gcloud config set project ${GOOGLE_PROJECT_ID}'
+                sh 'gcloud config set project ${GOOGLE_PROJECT_ID}'
                 //sh '''
                 //  gcloud pubsub topics list
                 //  gcloud projects list
