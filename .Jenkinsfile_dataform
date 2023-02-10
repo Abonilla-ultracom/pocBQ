@@ -4,7 +4,7 @@ pipeline {
     environment {
         GOOGLE_PROJECT_ID = "poc-ci-cd-375313" 
         GOOGLE_PROJECT_NAME = "poc-ci-cd"
-        GOOGLE_APPLICATION_CREDENTIALS = credentials(('jenkins_secret'), variable: 'private_key')
+        GOOGLE_APPLICATION_CREDENTIALS = credentials('jenkins_secret')
         GOOGLE_CLOUD_KEYFILE_JSON = credentials('jenkins_secret')
     }
     stages("Google Cloud connection -----------------"){
