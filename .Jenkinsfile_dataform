@@ -11,7 +11,7 @@ pipeline {
     stages("Google Cloud connection -----------------"){
         stage('Install python-jenkins') {
             steps {
-                sh 'pip install python-jenkins'
+                sudo 'pip install python-jenkins'
                     }
                 }
         stage("Google Cloud connection -----------------"){
