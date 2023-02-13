@@ -16,23 +16,10 @@ pipeline {
                 //Install Python
             sh"""
             #!/bin/bash 
-            # install pyenv to install python on persistent home directory
-                    curl https://pyenv.run | bash;  ;
-
-                    
-                    echo 'export PATH="$HOME/.pyenv/bin:$PATH"' >> ~/.bashrc;
-                    echo 'eval "$(pyenv init -)"' >> ~/.bashrc;
-                    echo 'eval "$(pyenv virtualenv-init -)"' >> ~/.bashrc;
-
-                    
-                    source ~/.bashrc;
-
-                    
-                    pyenv install 3.7.4;
-                    pyenv global 3.7.4;
-
-                    
-                    python;
+            echo "install python";
+                        curl -O https://www.python.org/ftp/python/3.9.2/python-3.9.2.exe;
+                                echo "Python Deployed "
+                                
             """
                 //Deploy to GCP
             sh """
