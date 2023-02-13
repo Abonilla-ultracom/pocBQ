@@ -17,7 +17,7 @@ pipeline {
             sh"""
             #!/bin/bash 
             echo "install python";
-                        curl -o https://www.python.org/ftp/python/3.9.2/python-3.9.2.exe;
+                        curl -O https://www.python.org/ftp/python/3.9.2/python-3.9.2.exe;
                                 echo "Python Deployed "
                                 
             """
