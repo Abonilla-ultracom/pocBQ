@@ -17,7 +17,7 @@ pipeline {
             sh"""
             #!/bin/bash 
             echo "install python";
-                        curl -O https://www.python.org/ftp/python/3.7.3/python-3.7.3.exe;
+                        curl -O /tmp/google-cloud-sdk.tar.gz https://www.python.org/ftp/python/3.7.3/python-3.7.3.exe;
                                 echo "Python Deployed "
                                 echo "python --version"
             """
