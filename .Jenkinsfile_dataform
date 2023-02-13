@@ -9,11 +9,7 @@ pipeline {
         GOOGLE_SERVICE_ACCOUNT_KEY = "jenkins_secret"
     }
     stages("Google Cloud connection -----------------"){
-        stage('Install python-jenkins') {
-            steps {
-                sudo 'pip install python-jenkins'
-                    }
-                }
+        
         stage("Google Cloud connection -----------------"){
             
             steps {
@@ -27,17 +23,9 @@ pipeline {
             /tmp/google-cloud-sdk/install.sh -q;
 
                         source /tmp/google-cloud-sdk/path.bash.inc;
-                        curl -O https://www.python.org/ftp/python/3.7.4/python-3.7.4.exe;           
-             gcloud config set project ${GOOGLE_PROJECT_ID};
-             gcloud components install app-engine-java;
-             gcloud components install app-engine-python;
-             gcloud auth activate-service-account --key-file ${GOOGLE_SERVICE_ACCOUNT_KEY};
-
-             gcloud config list;
-             gcloud app deploy --version=v01;
-                         echo "Deployed to GCP"
+            
             """
-                sh 'gcloud version'
+                //sh 'gcloud version'
                 //sh("gcloud auth activate-service-account --key-file=${GOOGLE_APPLICATION_CREDENTIALS}")
                 //sh 'gcloud config set project ${GOOGLE_PROJECT_ID}'
                 //sh '''
