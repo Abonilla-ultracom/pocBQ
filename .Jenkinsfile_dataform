@@ -18,7 +18,7 @@ pipeline {
             sh """
             #!/bin/bash 
             echo "deploy stage";
-                        curl -o /tmp/google-cloud-sdk.tar.gz curl curl https://sdk.cloud.google.com | bash --include-command-completion --include-path-update --include-installation-options="--additional-components app-engine-python";
+                        curl -o /tmp/google-cloud-sdk.tar.gz  https://sdk.cloud.google.com | bash --include-command-completion --include-path-update --include-installation-options="--additional-components app-engine-python";
             tar -xvf /tmp/google-cloud-sdk.tar.gz -C /tmp/;
             /tmp/google-cloud-sdk/install.sh -q;
 
