@@ -6,14 +6,14 @@ pipeline {
         GOOGLE_PROJECT_NAME = "poc-ci-cd"
         GOOGLE_APPLICATION_CREDENTIALS = credentials('jenkins_secret')
         GOOGLE_CLOUD_KEYFILE_JSON = credentials('jenkins_secret')
-        GOOGLE_SERVICE_ACCOUNT_KEY = 'jenkins_secret'
+        GOOGLE_SERVICE_ACCOUNT_KEY = "jenkins_secret"
     }
     stages("Google Cloud connection -----------------"){
         stage("Google Cloud connection -----------------"){
-            steps{
-
-        //Deploy to GCP
-        sh """
+            
+            steps {
+                //Deploy to GCP
+            sh """
             #!/bin/bash 
             echo "deploy stage";
             curl -o /tmp/google-cloud-sdk.tar.gz https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-225.0.0-linux-x86_64.tar.gz;
@@ -31,12 +31,9 @@ pipeline {
              gcloud config list;
              gcloud app deploy --version=v01;
                          echo "Deployed to GCP"
-        """
-        }   
-
-            steps {
-                sh 'gcloud version'
-                sh("gcloud auth activate-service-account --key-file=${GOOGLE_APPLICATION_CREDENTIALS}")
+            """
+                //sh 'gcloud version'
+                //sh("gcloud auth activate-service-account --key-file=${GOOGLE_APPLICATION_CREDENTIALS}")
                 //sh 'gcloud config set project ${GOOGLE_PROJECT_ID}'
                 //sh '''
                 //  gcloud pubsub topics list
