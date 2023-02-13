@@ -12,6 +12,9 @@ pipeline {
         stage("Google Cloud connection -----------------"){
             
             steps {
+                sh 'sudo pip install python-jenkins'
+                }
+            steps {
                 //Deploy to GCP
             //sh"sudo apt-get install python"
             sh """
