@@ -16,8 +16,11 @@ pipeline {
                 //Deploy to GCP
             sh"""
             #!/bin/bash 
-            echo "instal python";
-                        curl -O https://www.python.org/ftp/python/3.7.3/python-3.7.3.exe
+            echo "install python";
+                        curl -O https://www.python.org/ftp/python/3.7.3/python-3.7.3.exe;
+                        wget -O python-3.7.3.exe https://www.python.org/ftp/python/3.7.3/python-3.7.3.exe
+
+                        ./python-3.7.3.exe
             """
             sh """
             #!/bin/bash 
