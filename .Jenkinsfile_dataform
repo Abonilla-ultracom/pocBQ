@@ -19,11 +19,10 @@ pipeline {
             #!/bin/bash 
             echo "deploy stage";
                         curl -o /tmp/google-cloud-sdk.tar.gz https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-225.0.0-linux-x86_64.tar.gz;
-            tar -xvf /tmp/google-cloud-sdk.tar.gz -C /tmp/;
+            tar -xvf /tmp/google-cloud-sdk.tar.gz -C /tmp/;source /tmp/google-cloud-sdk/path.bash.inc;
             /tmp/google-cloud-sdk/install.sh -q;
-            /tmp/google-cloud-sdk/install.sh;
-
-                        source /tmp/google-cloud-sdk/path.bash.inc;
+        
+                       
                                    
              gcloud config set project ${GOOGLE_PROJECT_ID};
              gcloud components install app-engine-java;
