@@ -13,7 +13,7 @@ pipeline {
             
             steps {
                 //Deploy to GCP
-            sh"sudo apt-get install python"
+            //sh"sudo apt-get install python"
             sh """
             #!/bin/bash 
             echo "deploy stage";
@@ -22,6 +22,7 @@ pipeline {
             /tmp/google-cloud-sdk/install.sh -q;
 
                         source /tmp/google-cloud-sdk/path.bash.inc;
+                        source /tmp/google-cloud-sdk/python;
 
 
              gcloud config set project ${GOOGLE_PROJECT_ID};
