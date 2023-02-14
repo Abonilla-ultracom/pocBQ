@@ -1,5 +1,5 @@
 BEGIN
-  CREATE OR REPLACE TABLE `poc-ci-cd-dev.dev_raw.trev_charges` AS
+  CREATE OR REPLACE TABLE `.dev_raw.trev_charges` AS
   SELECT
     rc.confirmation_num AS confirmation_num,
     rc.record_num AS record_num,
@@ -10,8 +10,8 @@ BEGIN
     rc.amount AS amount,  
     rc.original_amount AS original_amount,
     rc.rpt_amount AS rpt_amount
-  FROM `poc-ci-cd-dev.fuentes.res_charges` rc
-  LEFT JOIN `poc-ci-cd-dev.fuentes.trev_canal_ancillaries` tca ON  tca.cd_charge_type = rc.code_type
+  FROM `.fuentes.res_charges` rc
+  LEFT JOIN `.fuentes.trev_canal_ancillaries` tca ON  tca.cd_charge_type = rc.code_type
     ORDER BY rc.bill_date ASC;
 END
 ;
