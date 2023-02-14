@@ -1,0 +1,20 @@
+--BEGIN  CREATE OR REPLACE TABLE poc-ci-cd-dev.capa_cruda.cruda as
+--SELECT * FROM poc-ci-cd-dev.fuentes.estado;
+--END
+
+BEGIN
+  CREATE OR REPLACE TABLE `poc-ci-cd-dev.capa_cruda.crudas.trev_charges` AS
+  SELECT
+--    rc.confirmation_num AS confirmation_num,
+--    rc.record_num AS record_num,
+--    TIMESTAMP(FORMAT_DATE('%Y-%m-%d %H:%M:%S',rc.bill_date)) AS departure_date,
+--    TIMESTAMP(FORMAT_DATE('%Y-%m-%d %H:%M:%S',rc.last_modified_date)) AS last_modified_date,
+--    IFNULL(CASE WHEN (tca.cd_canal = 'ATO') THEN 'ATO' ELSE 'WCA' END,rc.code_type) AS channel_id,
+--    rc.code_type AS code_type,
+--    rc.amount AS amount,  
+--    rc.original_amount AS original_amount,
+--    rc.rpt_amount AS rpt_amount
+--  FROM `gcp-wingo-replicacion-349115.cruda_01_replicacion_ds.res_charges` rc
+--  LEFT JOIN `gcp-wingo-replicacion-349115.cruda_01_replicacion_ds.trev_canal_ancillaries` tca ON  tca.cd_charge_type = rc.code_type
+--    ORDER BY rc.bill_date ASC;
+--END
