@@ -7,6 +7,6 @@ BEGIN
             Round_Trip AS RUTA,
             Mercado AS MERCADO,
             Negocio AS NEGOCIO,
-            Millas AS DISTACIA,
+            Millas AS DISTACIAENMILLAS,
       FROM `.dev_raw.segmentacion`;
 END
