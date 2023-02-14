@@ -1,0 +1,4 @@
+BEGIN  CREATE OR REPLACE TABLE poc-ci-cd-dev.capa_cruda.cruda as
+SELECT * FROM poc-ci-cd-dev.fuentes.estado;
+END
+--vamos a probar lo cambios realizados en ambos ambientes v56
