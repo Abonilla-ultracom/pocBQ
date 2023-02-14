@@ -2,6 +2,6 @@
   "defaultSchema": "dataform",
   "assertionSchema": "dataform_assertions",
   "warehouse": "bigquery",
-  "defaultDatabase": "poc-ci-cd-dev",
+  "defaultDatabase": "poc-ci-cd-375313",
   "defaultLocation": "us-central1"
 }
