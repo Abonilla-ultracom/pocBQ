@@ -1,4 +1,4 @@
---linea de prueba
+--linea de prueb
 BEGIN
       create or replace table `.dev_curate.dim_tramo` AS
       SELECT CONCAT(SUBSTR(Tramo,1,3),'<>',SUBSTR(Tramo,4,6)) pk_tramo, 
