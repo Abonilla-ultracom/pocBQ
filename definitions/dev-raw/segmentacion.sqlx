@@ -1,0 +1,6 @@
+BEGIN
+  CREATE OR REPLACE TABLE `.dev_raw.segmentacion` AS
+  SELECT  *
+  FROM `.fuentes.segmentacion`;
+END
+;
