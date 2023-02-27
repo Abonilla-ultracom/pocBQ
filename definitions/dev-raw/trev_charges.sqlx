@@ -1,3 +1,4 @@
+
 BEGIN
   CREATE OR REPLACE TABLE `.dev_raw.trev_charges` AS
   SELECT
