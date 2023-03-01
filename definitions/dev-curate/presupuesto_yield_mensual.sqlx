@@ -1,3 +1,4 @@
+--prueba notificaciones
 BEGIN
 
 DECLARE Year_min INT64 DEFAULT (SELECT MIN(EXTRACT(YEAR FROM Fecha)) FROM `.fuentes.presupuesto`);
