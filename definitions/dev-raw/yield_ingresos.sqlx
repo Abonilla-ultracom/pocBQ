@@ -1,0 +1,168 @@
+BEGIN
+create or replace table `.dev_raw.yield_ingresos` as
+
+SELECT
+  operating_flight_num_l,
+  departure_date,
+  arrival_date,
+  ruta,
+  tramo,
+  from_airport,
+  to_airport,
+  tipo_vuelo,
+  flight_status_f,
+  negocio,
+  mercado,
+  --ATD,
+  --ATA,
+  --block_hours_real,
+  --block_hours_expected,
+  RP,
+  NRP,
+  NRS,
+  pax_adt,
+  pax_chd,
+  pax_inf,
+  others_pax,
+  bkd,
+  boarded,
+  no_show,
+  active,
+  nuevos,
+  cambios,
+  millas,
+  lid,
+  capacidad,
+  capacidad_restringida,
+  costoSilla,
+  costoVariable,
+  air,
+  penalidades,
+  ancilliary,
+  tax,
+  isPosteado,
+  inicioPosteado,
+  finPosteado,
+  ap,
+  dp,
+  post_departure,
+  frec,
+  fk_date
+FROM(
+  WITH
+  vuelos AS(
+    SELECT departure_date, TIMESTAMP(FORMAT_DATE('%Y-%m-%d %H:%M:%S',sch_arrival)) as sch_arrival,book_date,operating_flight_num_l, logical_flight_id, confirmation_num, record_num, res_status_des, ptc_id, saved_fb_code, res_seg_status,ruta, tipo_vuelo, flight_status_f, from_airport, to_airport, CONCAT(from_airport,'<>',to_airport) AS tramo,from_country,to_country, number_of_seats, capacidad, marketing_carrier,operating_carrier,tipo_venta
+    FROM `.fuentes.flight_tramo`
+  )
+  , vuelos_bookings AS (
+    SELECT
+      departure_date, operating_flight_num_l, confirmation_num, record_num, res_status_des,
+      SUM(IF(categoria = 'REVENUE PASSENGER', 1, 0)) AS RP,
+      SUM(IF(categoria = 'NO REVENUE POSITIVE', 1, 0)) AS NRP,
+      SUM(IF(categoria = 'NO REVENUE AVAILABLE', 1, 0)) AS NRS,
+      SUM(IF(categoria = 'REVENUE PASSENGER' AND ptc_id = 1, 1, 0)) AS ADT,
+      SUM(IF(categoria = 'REVENUE PASSENGER' AND ptc_id = 6, 1, 0)) AS CHD,
+      SUM(IF(categoria = 'REVENUE PASSENGER' AND ptc_id = 5, 1, 0)) AS INF,
+      SUM(IF(categoria = 'REVENUE PASSENGER' AND ptc_id NOT IN (1, 5, 6), 1, 0)) AS Others_PAX,
+      SUM(IF(tm.res_status_des = 'BOARDED', 1, 0))  as boarded,
+      SUM(IF(tm.res_status_des = 'NO SHOW', 1, 0))  as no_show,
+      SUM(IF(tm.res_status_des = 'ACTIVE', 1, 0))  as active,
+      SUM(IF(tm.tipo_venta = 'NUEVO', 1, 0))  as nuevos,
+      SUM(IF(tm.tipo_venta = 'CAMBIOS', 1, 0))  as cambios,
+    FROM vuelos tm
+    LEFT JOIN `.fuentes.fare_class` f on tm.saved_fb_code = f.fb_code
+    WHERE
+      tm.res_seg_status <> 0
+    GROUP BY departure_date, operating_flight_num_l, confirmation_num, record_num, res_status_des
+  ), cargos AS (
+    SELECT
+      c.record, c.record_num,c.tipoVenta,
+      SUM(IF(codigo_servicio = 'AIR', rpt_amount, 0)) AS air,
+      SUM(IF(codigo_servicio = 'PNLT', rpt_amount, 0)) AS penalidades,
+      SUM(IF(codigo_servicio NOT IN ('AIR', 'TAX', 'IVA', 'NREF', 'PNLT'), rpt_amount, 0)) AS ancilliary,
+      SUM(IF(codigo_servicio IN ('TAX', 'IVA'), rpt_amount, 0)) AS tax,
+      SUM(IF(c.tipoVenta = 'NUEVO', 1, 0))  as nuevos,
+      SUM(IF(c.tipoVenta = 'CAMBIOS', 1, 0))  as cambios,
+      SUM(IF(codigo_servicio NOT IN ('AIR', 'TAX', 'IVA', 'NREF', 'PNLT'), 1, 0)) AS pax_ancilliary
+    FROM vuelos t
+    INNER JOIN `.fuentes.trep_cargos_contab` c ON c.record_num=t.record_num AND c.record=t.confirmation_num
+    GROUP BY record, record_num,tipoVenta
+  ), posteados as (
+    SELECT
+      ps.departure_date,
+      cast(ps.flight_num as string) as flight_num,
+      ps.flight_status,
+      ps.logical_flight_id,
+      ps.boarded,
+      ps.isPosteado,
+      ps.inicioPosteado,
+      ps.finPosteado,
+      ps.ap,
+      ps.dp
+    FROM `.fuentes.tacu_consol_para_posteados` ps
+  )
+
+  SELECT
+      t.operating_flight_num_l,
+      t.departure_date,
+      t.sch_arrival as arrival_date,
+      t.ruta,
+      t.tramo,
+      t.from_airport,
+      t.to_airport,
+      t.tipo_vuelo,
+      t.flight_status_f,
+      mkd.Negocio as negocio,
+      mkd.Mercado as mercado,
+      --bl.ATD,
+      --bl.ATA,
+      --bl.block_hours as block_hours_real,
+      DATE_DIFF( t.sch_arrival, t.departure_date, SECOND) block_hours_expected,
+      SUM(vb.RP) RP,
+      SUM(vb.NRP) NRP,
+      SUM(vb.NRS) NRS,
+      SUM(vb.ADT) AS pax_adt,
+      SUM(vb.CHD) AS pax_chd,
+      SUM(vb.INF) AS pax_inf,
+      SUM(vb.others_PAX) AS others_pax,
+      SUM(IFNULL(vb.RP - vb.INF + NRP, 0)) AS bkd,
+      SUM(vb.boarded) boarded,
+      SUM(vb.no_show) no_show,
+      SUM(vb.active) active,
+      SUM(vb.nuevos) nuevos,
+      SUM(vb.cambios) cambios,
+      mkd.Millas AS millas,
+      MAX(number_of_seats) AS lid,
+      t.capacidad,
+      COALESCE(cap.CapRestringida,t.capacidad) capacidad_restringida,
+      s.costoSilla,
+      s.costoVariable,
+      ROUND(SUM(air),2) air,
+      ROUND(SUM(penalidades),2) penalidades,
+      ROUND(SUM(ancilliary),2) ancilliary,
+      ROUND(SUM(tax),2) tax,
+      ps.isPosteado,
+      ps.inicioPosteado,
+      ps.finPosteado,
+      ps.ap,
+      ps.dp,
+      IF(DATE(t.departure_date) < CURRENT_DATE(),'TRUE','FALSE') post_departure,
+      COUNT(DISTINCT(operating_flight_num_l)) AS frec,
+      CAST(DATE(t.departure_date) as STRING) fk_date
+    FROM vuelos t
+    LEFT JOIN vuelos_bookings vb USING(departure_date, operating_flight_num_l, confirmation_num, record_num)
+    --LEFT JOIN `.fuentes.millas` d ON d.ruta=t.ruta
+    LEFT JOIN `.fuentes.costo_sillas_variable` s on t.ruta=s.ruta and (date(t.departure_date) between s.Desde and s.Hasta)
+    LEFT JOIN cargos c ON c.record_num=t.record_num AND c.record=t.confirmation_num
+    LEFT JOIN `.fuentes.capacidad_restringida`cap ON cap.TRAMO=t.tramo and CONCAT(EXTRACT(YEAR FROM cap.Mes),'-',EXTRACT(MONTH FROM cap.Mes)) = CONCAT(EXTRACT(YEAR FROM t.departure_date),'-',EXTRACT(MONTH FROM t.departure_date))
+    --LEFT JOIN block bl ON bl.tramo=t.tramo and bl.Date = date(t.departure_date) and t.operating_flight_num_l = bl.flt
+    LEFT JOIN posteados ps ON ps.logical_flight_id=t.logical_flight_id AND ps.departure_date=DATE(t.departure_date)
+    LEFT JOIN `.fuentes.segmentacion` mkd ON CONCAT(t.from_airport,t.to_airport) = mkd.Tramo
+    GROUP BY
+    --t.book_date, t.res_status_des, tipoVenta, t.confirmation_num,t.record_num,
+      operating_flight_num_l, t.departure_date, t.ruta, t.tramo, t.from_airport, t.to_airport,
+      t.tipo_vuelo, t.flight_status_f, s.costoSilla, s.costoVariable,
+      capacidad_restringida, t.capacidad,negocio,mkd.Mercado,mkd.Millas,t.sch_arrival,ps.isPosteado,ps.inicioPosteado,ps.finPosteado,ps.ap,ps.dp
+  
+);
+END
