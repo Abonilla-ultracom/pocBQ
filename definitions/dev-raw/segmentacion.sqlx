@@ -1,3 +1,4 @@
+
 BEGIN
   CREATE OR REPLACE TABLE `.dev_raw.segmentacion` AS
   SELECT  *
