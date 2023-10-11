@@ -1,5 +1,5 @@
 BEGIN
-
+--
 DECLARE Year_min INT64 DEFAULT (SELECT MIN(EXTRACT(YEAR FROM Fecha)) FROM `.fuentes.presupuesto`);
 CREATE OR REPLACE TABLE `.dev_curate.presupuesto_yield_mensual` AS
 WITH a AS (
