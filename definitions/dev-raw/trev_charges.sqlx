@@ -1,4 +1,5 @@
 --linea de prueba
+-- comentario de capacitacion de datafrom
 BEGIN
   CREATE OR REPLACE TABLE `.dev_raw.trev_charges` AS
   SELECT
